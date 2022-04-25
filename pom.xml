@@ -54,7 +54,7 @@
         <spring-native.version>0.11.4</spring-native.version>
         <!-- Testing -->
         <junit.jupiter.version>5.8.2</junit.jupiter.version>
-        <mockito.version>4.4.0</mockito.version>
+        <mockito.version>4.5.1</mockito.version>
         <!-- Other -->
         <jackson.version>2.13.2.2</jackson.version>
     </properties>
