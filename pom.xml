@@ -51,7 +51,7 @@
         <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
         <!-- Main -->
         <axon.version>4.6.0-SNAPSHOT</axon.version>
-        <spring-native.version>0.11.4</spring-native.version>
+        <spring-native.version>0.11.5</spring-native.version>
         <!-- Other -->
         <jackson.version>2.13.2.2</jackson.version>
         <!-- Testing -->
