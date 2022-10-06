@@ -48,7 +48,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
         <!-- Main -->
-        <axon.version>4.6.0</axon.version>
+        <axon.version>4.6.1</axon.version>
         <spring-native.version>0.12.1</spring-native.version>
         <!-- Other -->
         <jackson.version>2.13.4</jackson.version>
