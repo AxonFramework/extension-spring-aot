@@ -21,7 +21,6 @@
     <artifactId>axon-spring-native</artifactId>
     <version>0.1.1-SNAPSHOT</version>
 
-
     <modelVersion>4.0.0</modelVersion>
 
     <name>Axon Framework - Spring Native Extension</name>
@@ -51,7 +50,7 @@
         <axon.version>4.6.1</axon.version>
         <spring-native.version>0.12.1</spring-native.version>
         <!-- Other -->
-        <jackson.version>2.13.4</jackson.version>
+        <jackson.version>2.13.4.2</jackson.version>
         <!-- Testing -->
         <junit.jupiter.version>5.9.1</junit.jupiter.version>
         <mockito.version>4.8.0</mockito.version>
