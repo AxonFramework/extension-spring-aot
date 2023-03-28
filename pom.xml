@@ -54,7 +54,7 @@
         <!-- Testing -->
         <junit.jupiter.version>5.9.1</junit.jupiter.version>
         <mockito.version>5.2.0</mockito.version>
-        <byte-buddy.version>1.14.2</byte-buddy.version>
+        <byte-buddy.version>1.14.3</byte-buddy.version>
     </properties>
 
     <dependencies>
