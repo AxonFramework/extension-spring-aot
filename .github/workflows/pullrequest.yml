@@ -8,6 +8,7 @@ jobs:
     name: Test and Build on JDK ${{ matrix.java-version }}
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         include:
           - java-version: 11
