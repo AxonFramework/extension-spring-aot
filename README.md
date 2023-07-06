@@ -3,11 +3,6 @@
 ![Build Status](https://github.com/AxonFramework/extension-spring-native/workflows/Spring%20Native%20Extension/badge.svg?branch=main)
 [![SonarCloud Status](https://sonarcloud.io/api/project_badges/measure?project=AxonFramework_extension-spring-native&metric=alert_status)](https://sonarcloud.io/dashboard?id=AxonFramework_extension-spring-native)
 
-> **This project is Experimental!**
-> 
-> Note that this extension is an experimental project with Axon Framework.
-> As such we hold the freedom to change and break compatibility of the extension.
-
 Axon Framework is a framework for building evolutionary, event-driven microservice systems,
 based on the principles of Domain Driven Design, Command-Query Responsibility Segregation (CQRS) and Event Sourcing.
 
@@ -18,7 +13,7 @@ The framework provides sensible defaults for all of these components out of the 
 This set up helps you create a well-structured application without having to bother with the infrastructure.
 The main focus can thus become your business functionality.
 
-Axon Framework's **Experimental** Spring Native Extension provides integration with [Spring Native](https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/).
+Axon Framework's Spring Native Extension provides integration with [Spring Native](https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/).
 This extension provides support for compiling Axon and Spring applications to native executables using the [GraalVM](https://www.graalvm.org/) native-image compiler.
 
 For more information on anything Axon, please visit our website, [http://axoniq.io](http://axoniq.io).
