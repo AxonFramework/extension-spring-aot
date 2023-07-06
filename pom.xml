@@ -17,15 +17,15 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <groupId>org.axonframework.experimental</groupId>
+    <groupId>org.axonframework.extensions.springnative</groupId>
     <artifactId>axon-spring-native</artifactId>
-    <version>0.1.1-SNAPSHOT</version>
+    <version>4.8.0-SNAPSHOT</version>
 
     <modelVersion>4.0.0</modelVersion>
 
     <name>Axon Framework - Spring Native Extension</name>
     <description>
-        Experimental extension for Axon Framework providing support for Spring Native.
+        Extension for Axon Framework providing support for Spring Native.
     </description>
 
     <inceptionYear>2022</inceptionYear>
@@ -43,14 +43,16 @@
 
     <properties>
         <!-- Build / Plugins -->
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
         <!-- Main -->
-        <axon.version>4.6.1</axon.version>
-        <spring-native.version>0.12.2</spring-native.version>
+        <axon.version>4.8.0</axon.version>
+        <spring.version>6.0.10</spring.version>
+        <spring-boot.version>3.1.1</spring-boot.version>
         <!-- Other -->
         <jackson.version>2.13.4.2</jackson.version>
+        <netty.version>4.1.94.Final</netty.version>
         <!-- Testing -->
         <junit.jupiter.version>5.9.1</junit.jupiter.version>
         <mockito.version>5.3.1</mockito.version>
@@ -70,17 +72,17 @@
             <version>${axon.version}</version>
             <optional>true</optional>
         </dependency>
-        <!-- Spring Experimental -->
+        <!-- Spring -->
         <dependency>
-            <groupId>org.springframework.experimental</groupId>
-            <artifactId>spring-aot</artifactId>
-            <version>${spring-native.version}</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>org.springframework.experimental</groupId>
-            <artifactId>spring-native</artifactId>
-            <version>${spring-native.version}</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
             <optional>true</optional>
         </dependency>
         <!-- Other -->
@@ -90,7 +92,19 @@
             <version>${jackson.version}</version>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-transport-classes-epoll</artifactId>
+            <version>${netty.version}</version>
+            <optional>true</optional>
+        </dependency>
         <!-- Testing -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <version>${spring-boot.version}</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -224,6 +238,14 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>
