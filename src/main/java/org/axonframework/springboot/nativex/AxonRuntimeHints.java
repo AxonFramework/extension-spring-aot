@@ -44,14 +44,13 @@ import org.springframework.aot.hint.RuntimeHintsRegistrar;
 import org.springframework.aot.hint.TypeHint;
 import org.springframework.aot.hint.TypeReference;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
-import org.springframework.util.ClassUtils;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.util.Arrays;
@@ -99,7 +98,7 @@ public class AxonRuntimeHints implements RuntimeHintsRegistrar {
     }
 
     private List<Class<?>> getAxonClasses(ClassLoader classLoader) {
-        return getClasses(classLoader, getRootPackage(classLoader))
+        return getClasses(classLoader, getRootPackage())
                 .stream()
                 .filter(this::isAxonClass)
                 .toList();
@@ -221,17 +220,10 @@ public class AxonRuntimeHints implements RuntimeHintsRegistrar {
                 method.isAnnotationPresent(DeadlineHandler.class);
     }
 
-    private String getRootPackage(ClassLoader classLoader) {
+    private String getRootPackage() {
         ClassPathScanningCandidateComponentProvider scanner =
                 new ClassPathScanningCandidateComponentProvider(false);
-        //noinspection unchecked
-        Class<? extends Annotation> springbootAnnotation =
-                (Class<? extends Annotation>) ClassUtils.resolveClassName(
-                        "org.springframework.boot.autoconfigure.SpringBootApplication",
-                        classLoader
-                );
-        scanner.addIncludeFilter(new AnnotationTypeFilter(springbootAnnotation));
-
+        scanner.addIncludeFilter(new AnnotationTypeFilter(SpringBootApplication.class));
         for (BeanDefinition bd : scanner.findCandidateComponents("")) {
             String beanClassName = bd.getBeanClassName();
             if (Objects.isNull(beanClassName)) {
