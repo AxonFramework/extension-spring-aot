@@ -25,7 +25,8 @@ import com.axoniq.someproject.api.SomeQuery;
 import com.axoniq.someproject.api.SomeResult;
 import com.axoniq.someproject.api.StatusChangedEvent;
 import com.axoniq.someproject.something.SomeAggregate;
-import com.axoniq.someproject.something.SomeProjection;
+import com.axoniq.someproject.something.SomeProjectionWithGroupAnnotation;
+import com.axoniq.someproject.something.SomeProjectionWithoutGroupAnnotation;
 import io.netty.channel.epoll.EpollChannelOption;
 import org.axonframework.eventhandling.GlobalSequenceTrackingToken;
 import org.axonframework.messaging.responsetypes.OptionalResponseType;
@@ -76,12 +77,13 @@ class AxonRuntimeHintsTest {
 
     @Test
     void handlerMethodsHaveReflectiveHints() {
-        assertTrue(RuntimeHintsPredicates.reflection().onMethod(SomeAggregate.class, "handle").test(this.hints));
-        assertTrue(RuntimeHintsPredicates.reflection().onMethod(SomeAggregate.class, "onSomeEvent").test(this.hints));
-        assertTrue(RuntimeHintsPredicates.reflection().onMethod(SomeAggregate.class, "onStatusChangedEvent")
-                                         .test(this.hints));
-        assertTrue(RuntimeHintsPredicates.reflection().onMethod(SomeProjection.class, "handle").test(this.hints));
-        assertTrue(RuntimeHintsPredicates.reflection().onMethod(SomeProjection.class, "on").test(this.hints));
+        testReflectionMethod(SomeAggregate.class, "handle");
+        testReflectionMethod(SomeAggregate.class, "onSomeEvent");
+        testReflectionMethod(SomeAggregate.class, "onStatusChangedEvent");
+        testReflectionMethod(SomeProjectionWithGroupAnnotation.class, "handle");
+        testReflectionMethod(SomeProjectionWithGroupAnnotation.class, "on");
+        testReflectionMethod(SomeProjectionWithoutGroupAnnotation.class, "handle");
+        testReflectionMethod(SomeProjectionWithoutGroupAnnotation.class, "on");
     }
 
     @Test
@@ -102,6 +104,11 @@ class AxonRuntimeHintsTest {
         assertTrue(RuntimeHintsPredicates.proxies().forInterfaces(TypeReference.of(
                                                  "org.axonframework.common.jdbc.UnitOfWorkAwareConnectionProviderWrapper$UoWAttachedConnection"))
                                          .test(this.hints));
+    }
+
+    private void testReflectionMethod(Class<?> clazz, String methodName) {
+        assertTrue(RuntimeHintsPredicates.reflection().onMethod(clazz, methodName).test(this.hints),
+                   "No reflection on method " + methodName + " in class " + clazz.getName());
     }
 
     private void testForConstructorAndAllMethods(Class<?> clazz) {

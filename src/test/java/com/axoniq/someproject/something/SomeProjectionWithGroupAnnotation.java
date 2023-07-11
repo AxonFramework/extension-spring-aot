@@ -19,13 +19,15 @@ package com.axoniq.someproject.something;
 import com.axoniq.someproject.api.SomeProjectionEvent;
 import com.axoniq.someproject.api.SomeQuery;
 import com.axoniq.someproject.api.SomeResult;
+import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.queryhandling.QueryHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SomeProjection {
+@ProcessingGroup("some_group")
+public class SomeProjectionWithGroupAnnotation {
 
     private final List<String> ids = new ArrayList<>();
 
