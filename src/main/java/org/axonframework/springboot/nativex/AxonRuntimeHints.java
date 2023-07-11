@@ -64,8 +64,8 @@ import java.util.stream.Stream;
 
 /**
  * This class is used to set runtime hints for axon applications. It finds the root package, and starts from there to
- * search vor axon classes, and add reflection hints. From those classes it tries to find all the api classes, which
- * need to have there constructors and methods available for serialisation. It does a few additional things which are
+ * search for Axon Framework classes, and add reflection hints. From those classes it tries to find all the API classes, which
+ * need to have there constructors and methods available for serialization. It does a few additional things that are
  * needed to make it work.
  *
  * @author Gerard Klijs
