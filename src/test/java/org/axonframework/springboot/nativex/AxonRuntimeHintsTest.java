@@ -100,9 +100,10 @@ class AxonRuntimeHintsTest {
 
     @Test
     void proxiesAreSet() {
-        assertTrue(RuntimeHintsPredicates.proxies().forInterfaces(Connection.class).test(this.hints));
-        assertTrue(RuntimeHintsPredicates.proxies().forInterfaces(TypeReference.of(
-                                                 "org.axonframework.common.jdbc.UnitOfWorkAwareConnectionProviderWrapper$UoWAttachedConnection"))
+        assertTrue(RuntimeHintsPredicates.proxies().forInterfaces(
+                                                 TypeReference.of(Connection.class),
+                                                 TypeReference.of(
+                                                         "org.axonframework.common.jdbc.UnitOfWorkAwareConnectionProviderWrapper$UoWAttachedConnection"))
                                          .test(this.hints));
     }
 

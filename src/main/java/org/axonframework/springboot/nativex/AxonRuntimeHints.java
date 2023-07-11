@@ -88,9 +88,10 @@ public class AxonRuntimeHints implements RuntimeHintsRegistrar {
         apiClasses.forEach(c -> registerForSerialisation(reflectionHints, c));
         hints.resources().registerPattern("axonserver_download.txt");
         hints.resources().registerPattern("SQLErrorCode.properties");
-        hints.proxies().registerJdkProxy(Connection.class);
-        hints.proxies().registerJdkProxy(TypeReference.of(
-                "org.axonframework.common.jdbc.UnitOfWorkAwareConnectionProviderWrapper$UoWAttachedConnection"));
+        hints.proxies().registerJdkProxy(
+                TypeReference.of(Connection.class),
+                TypeReference.of(
+                        "org.axonframework.common.jdbc.UnitOfWorkAwareConnectionProviderWrapper$UoWAttachedConnection"));
     }
 
     private void registerGrpcHints(ReflectionHints hints) {
