@@ -37,7 +37,8 @@ public class NativeAutoConfiguration {
 
     @ConditionalOnMissingBean
     @Bean
-    public TargetContextResolver<?> targetContextResolver() {
+    @SuppressWarnings("rawtypes")
+    public TargetContextResolver targetContextResolver() {
         return new DefaultTargetContextResolver<>(null);
     }
 }
