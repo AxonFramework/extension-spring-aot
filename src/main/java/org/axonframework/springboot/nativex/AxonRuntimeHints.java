@@ -109,7 +109,7 @@ public class AxonRuntimeHints implements RuntimeHintsRegistrar {
                 .registerTypes(axonClasses.stream().map(TypeReference::of).toList(),
                                TypeHint.builtWith(MemberCategory.PUBLIC_CLASSES,
                                                   MemberCategory.INVOKE_DECLARED_CONSTRUCTORS,
-                                                  MemberCategory.INVOKE_PUBLIC_METHODS,
+                                                  MemberCategory.INVOKE_DECLARED_METHODS,
                                                   MemberCategory.INTROSPECT_DECLARED_METHODS,
                                                   MemberCategory.INTROSPECT_DECLARED_CONSTRUCTORS,
                                                   MemberCategory.DECLARED_FIELDS));
@@ -146,7 +146,7 @@ public class AxonRuntimeHints implements RuntimeHintsRegistrar {
 
     private void addClassesUsedInHandlers(Set<Class<?>> apiClasses, List<Class<?>> axonClasses) {
         axonClasses.stream()
-                   .flatMap(c -> Arrays.stream(c.getMethods()))
+                   .flatMap(c -> Arrays.stream(c.getDeclaredMethods()))
                    .filter(this::isAxonMethod)
                    .forEach(m -> {
                        if (m.getParameterTypes().length > 0) {

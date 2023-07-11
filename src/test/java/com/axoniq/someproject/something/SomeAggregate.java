@@ -50,12 +50,12 @@ public class SomeAggregate {
     }
 
     @EventSourcingHandler
-    public void onSomeEvent(SomeEvent event) {
+    protected void onSomeEvent(SomeEvent event) {
         this.id = event.id();
     }
 
     @EventSourcingHandler
-    public void onStatusChangedEvent(StatusChangedEvent event) {
+    protected void onStatusChangedEvent(StatusChangedEvent event) {
         this.status = event.newStatus();
     }
 
