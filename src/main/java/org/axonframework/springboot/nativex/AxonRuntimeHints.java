@@ -16,23 +16,21 @@
 
 package org.axonframework.springboot.nativex;
 
-import io.netty.channel.epoll.EpollChannelOption;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.common.AxonConfigurationException;
+import org.axonframework.common.annotation.AnnotationUtils;
 import org.axonframework.config.ProcessingGroup;
-import org.axonframework.deadline.annotation.DeadlineHandler;
-import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.eventhandling.GapAwareTrackingToken;
 import org.axonframework.eventhandling.GlobalSequenceTrackingToken;
 import org.axonframework.eventhandling.MergedTrackingToken;
 import org.axonframework.eventhandling.MultiSourceTrackingToken;
 import org.axonframework.eventhandling.ReplayToken;
 import org.axonframework.eventhandling.tokenstore.ConfigToken;
-import org.axonframework.eventsourcing.EventSourcingHandler;
+import org.axonframework.messaging.annotation.MessageHandler;
 import org.axonframework.messaging.responsetypes.InstanceResponseType;
 import org.axonframework.messaging.responsetypes.MultipleInstancesResponseType;
 import org.axonframework.messaging.responsetypes.OptionalResponseType;
-import org.axonframework.modelling.saga.SagaEventHandler;
+import org.axonframework.modelling.command.AggregateMember;
 import org.axonframework.modelling.saga.repository.jpa.SagaEntry;
 import org.axonframework.queryhandling.QueryHandler;
 import org.axonframework.spring.stereotype.Aggregate;
@@ -51,13 +49,19 @@ import org.springframework.core.type.filter.AnnotationTypeFilter;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -65,8 +69,7 @@ import java.util.stream.Stream;
 /**
  * This class is used to set runtime hints for axon applications. It finds the root package, and starts from there to
  * search for Axon Framework classes, and add reflection hints. From those classes it tries to find all the API classes, which
- * need to have there constructors and methods available for serialization. It does a few additional things that are
- * needed to make it work.
+ * need to have there constructors and methods available for serialization.
  *
  * @author Gerard Klijs
  * @since 4.8.0
@@ -81,6 +84,8 @@ public class AxonRuntimeHints implements RuntimeHintsRegistrar {
         ReflectionHints reflectionHints = hints.reflection();
         registerGrpcHints(reflectionHints);
         List<Class<?>> axonClasses = getAxonClasses(classLoader);
+        List<Class<?>> aggregateMembers = getAggregateMembers(axonClasses);
+        axonClasses = Stream.concat(axonClasses.stream(), aggregateMembers.stream()).toList();
         registerReflectionHints(axonClasses, reflectionHints);
         Set<Class<?>> apiClasses = new HashSet<>(axonSerializableClasses());
         addClassesUsedInAggregateConstructors(apiClasses, axonClasses);
@@ -95,7 +100,9 @@ public class AxonRuntimeHints implements RuntimeHintsRegistrar {
     }
 
     private void registerGrpcHints(ReflectionHints hints) {
-        hints.registerType(EpollChannelOption.class, MemberCategory.DECLARED_FIELDS);
+        hints.registerType(
+                TypeReference.of("io.netty.channel.epoll.EpollChannelOption"),
+                MemberCategory.DECLARED_FIELDS);
     }
 
     private List<Class<?>> getAxonClasses(ClassLoader classLoader) {
@@ -103,6 +110,36 @@ public class AxonRuntimeHints implements RuntimeHintsRegistrar {
                 .stream()
                 .filter(this::isAxonClass)
                 .toList();
+    }
+
+    private List<Class<?>> getAggregateMembers(List<Class<?>> axonClasses) {
+        List<Class<?>> aggregateMembers = new ArrayList<>();
+        axonClasses.forEach(c -> {
+            if (AnnotationUtils.isAnnotationPresent(c, Aggregate.class)) {
+                Arrays.stream(c.getDeclaredFields()).forEach(
+                        field -> getAggregateMember(field).ifPresent(aggregateMembers::add)
+                );
+            }
+        });
+        return aggregateMembers;
+    }
+
+    private Optional<Class<?>> getAggregateMember(Field field) {
+        if (AnnotationUtils.isAnnotationPresent(field, AggregateMember.class)) {
+            return extractType(field);
+        }
+        return Optional.empty();
+    }
+
+    private Optional<Class<?>> extractType(Field field) {
+        Class<?> type = field.getType();
+        if (Collection.class.isAssignableFrom(type)) {
+            return getCollectionTypeFromType(field.getGenericType());
+        } else if (Map.class.isAssignableFrom(type)) {
+            return getMapTypeFromType(field.getGenericType());
+        } else {
+            return Optional.of(type);
+        }
     }
 
     private void registerReflectionHints(List<Class<?>> axonClasses, ReflectionHints hints) {
@@ -137,9 +174,10 @@ public class AxonRuntimeHints implements RuntimeHintsRegistrar {
 
     private void addClassesUsedInAggregateConstructors(Set<Class<?>> apiClasses, List<Class<?>> axonClasses) {
         axonClasses.stream()
-                   .flatMap(c -> Arrays.stream(c.getConstructors()))
+                   .flatMap(c -> Arrays.stream(c.getDeclaredConstructors()))
                    .forEach(c -> {
-                       if (c.isAnnotationPresent(CommandHandler.class) && c.getParameterTypes().length > 0) {
+                       if (AnnotationUtils.isAnnotationPresent(c, CommandHandler.class)
+                               && c.getParameterTypes().length > 0) {
                            apiClasses.add(c.getParameterTypes()[0]);
                        }
                    });
@@ -148,18 +186,40 @@ public class AxonRuntimeHints implements RuntimeHintsRegistrar {
     private void addClassesUsedInHandlers(Set<Class<?>> apiClasses, List<Class<?>> axonClasses) {
         axonClasses.stream()
                    .flatMap(c -> Arrays.stream(c.getDeclaredMethods()))
-                   .filter(this::isAxonMethod)
+                   .filter(this::isAxonHandlerMethod)
                    .forEach(m -> {
                        if (m.getParameterTypes().length > 0) {
                            apiClasses.add(m.getParameterTypes()[0]);
                        }
-                       if (m.isAnnotationPresent(QueryHandler.class)) {
-                           Class<?> returnType = m.getReturnType();
-                           if (!Collection.class.isAssignableFrom(returnType)) {
-                               apiClasses.add(returnType);
+                       if (AnnotationUtils.isAnnotationPresent(m, QueryHandler.class)) {
+                           Class<?> returnClass = m.getReturnType();
+                           if (!Collection.class.isAssignableFrom(returnClass)) {
+                               apiClasses.add(returnClass);
+                           } else {
+                               getCollectionTypeFromType(m.getGenericReturnType()).ifPresent(apiClasses::add);
                            }
                        }
                    });
+    }
+
+    private Optional<Class<?>> getCollectionTypeFromType(Type type) {
+        return getTypeArgument(type, 0);
+    }
+
+    private Optional<Class<?>> getMapTypeFromType(Type type) {
+        return getTypeArgument(type, 1);
+    }
+
+    private Optional<Class<?>> getTypeArgument(Type type, int index) {
+        if (type instanceof ParameterizedType paramType) {
+            Type[] argTypes = paramType.getActualTypeArguments();
+            if (argTypes.length > index) {
+                if (argTypes[index] instanceof Class<?> clazz) {
+                    return Optional.of(clazz);
+                }
+            }
+        }
+        return Optional.empty();
     }
 
     private Set<Class<?>> getClasses(ClassLoader classLoader, String packageName) {
@@ -206,19 +266,14 @@ public class AxonRuntimeHints implements RuntimeHintsRegistrar {
     }
 
     private boolean isAxonClass(Class<?> clazz) {
-        return clazz.isAnnotationPresent(Aggregate.class) ||
-                clazz.isAnnotationPresent(ProcessingGroup.class) ||
-                clazz.isAnnotationPresent(Saga.class) ||
-                Arrays.stream(clazz.getMethods()).anyMatch(this::isAxonMethod);
+        return AnnotationUtils.isAnnotationPresent(clazz, Aggregate.class) ||
+                AnnotationUtils.isAnnotationPresent(clazz, ProcessingGroup.class) ||
+                AnnotationUtils.isAnnotationPresent(clazz, Saga.class) ||
+                Arrays.stream(clazz.getMethods()).anyMatch(this::isAxonHandlerMethod);
     }
 
-    private boolean isAxonMethod(Method method) {
-        return method.isAnnotationPresent(EventHandler.class) ||
-                method.isAnnotationPresent(QueryHandler.class) ||
-                method.isAnnotationPresent(CommandHandler.class) ||
-                method.isAnnotationPresent(EventSourcingHandler.class) ||
-                method.isAnnotationPresent(SagaEventHandler.class) ||
-                method.isAnnotationPresent(DeadlineHandler.class);
+    private boolean isAxonHandlerMethod(Method method) {
+        return AnnotationUtils.isAnnotationPresent(method, MessageHandler.class);
     }
 
     private String getRootPackage() {

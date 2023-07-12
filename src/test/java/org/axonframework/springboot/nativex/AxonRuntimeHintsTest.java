@@ -18,13 +18,17 @@ package org.axonframework.springboot.nativex;
 
 
 import com.axoniq.someproject.api.ChangeStatusCommand;
+import com.axoniq.someproject.api.SingleChildCommand;
+import com.axoniq.someproject.api.SomeChildCommand;
 import com.axoniq.someproject.api.SomeCommand;
 import com.axoniq.someproject.api.SomeEvent;
 import com.axoniq.someproject.api.SomeProjectionEvent;
 import com.axoniq.someproject.api.SomeQuery;
 import com.axoniq.someproject.api.SomeResult;
 import com.axoniq.someproject.api.StatusChangedEvent;
+import com.axoniq.someproject.something.SingleAggregateChild;
 import com.axoniq.someproject.something.SomeAggregate;
+import com.axoniq.someproject.something.SomeAggregateChild;
 import com.axoniq.someproject.something.SomeProjectionWithGroupAnnotation;
 import com.axoniq.someproject.something.SomeProjectionWithoutGroupAnnotation;
 import io.netty.channel.epoll.EpollChannelOption;
@@ -70,6 +74,9 @@ class AxonRuntimeHintsTest {
         testForConstructorAndAllMethods(SomeQuery.class);
         testForConstructorAndAllMethods(SomeResult.class);
         testForConstructorAndAllMethods(StatusChangedEvent.class);
+        //the ones from the aggregate childs
+        testForConstructorAndAllMethods(SingleChildCommand.class);
+        testForConstructorAndAllMethods(SomeChildCommand.class);
         //some default framework classes
         testForConstructor(GlobalSequenceTrackingToken.class);
         testForConstructorAndAllMethods(OptionalResponseType.class);
@@ -84,6 +91,8 @@ class AxonRuntimeHintsTest {
         testReflectionMethod(SomeProjectionWithGroupAnnotation.class, "on");
         testReflectionMethod(SomeProjectionWithoutGroupAnnotation.class, "handle");
         testReflectionMethod(SomeProjectionWithoutGroupAnnotation.class, "on");
+        testReflectionMethod(SingleAggregateChild.class, "handle");
+        testReflectionMethod(SomeAggregateChild.class, "handle");
     }
 
     @Test

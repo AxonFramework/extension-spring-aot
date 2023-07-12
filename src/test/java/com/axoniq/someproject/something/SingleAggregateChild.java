@@ -16,26 +16,18 @@
 
 package com.axoniq.someproject.something;
 
-import com.axoniq.someproject.api.SomeProjectionEvent;
-import com.axoniq.someproject.api.SomeQuery;
-import com.axoniq.someproject.api.SomeResult;
-import org.axonframework.eventhandling.EventHandler;
-import org.axonframework.queryhandling.QueryHandler;
+import com.axoniq.someproject.api.SingleChildCommand;
+import com.axoniq.someproject.api.SomeChildCommand;
+import org.axonframework.commandhandling.CommandHandler;
+import org.axonframework.modelling.command.EntityId;
 
-import java.util.ArrayList;
-import java.util.List;
+public record SingleAggregateChild(
+        @EntityId String id,
+        String property
+) {
 
-public class SomeProjectionWithoutGroupAnnotation {
-
-    private final List<String> ids = new ArrayList<>();
-
-    @EventHandler
-    public void on(SomeProjectionEvent event) {
-        ids.add(event.id());
-    }
-
-    @QueryHandler
-    public List<SomeResult> handle(SomeQuery query) {
-        return ids.stream().map(SomeResult::new).toList();
+    @CommandHandler
+    public void handle(SingleChildCommand command) {
+        //left empty to not overcomplicate things
     }
 }

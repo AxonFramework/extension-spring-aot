@@ -16,10 +16,11 @@
 
 package com.axoniq.someproject.api;
 
-import java.util.List;
+import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
-public record SomeResult(
-        String id
+public record ChildAddedToListEvent(
+        String id,
+        String property
 ) {
 
 }
