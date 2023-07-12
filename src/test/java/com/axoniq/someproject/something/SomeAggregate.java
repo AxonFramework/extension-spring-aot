@@ -16,15 +16,24 @@
 
 package com.axoniq.someproject.something;
 
+import com.axoniq.someproject.api.AddChildToListCommand;
+import com.axoniq.someproject.api.AddChildToMapCommand;
 import com.axoniq.someproject.api.ChangeStatusCommand;
+import com.axoniq.someproject.api.ChildAddedToListEvent;
+import com.axoniq.someproject.api.ChildAddedToMapEvent;
 import com.axoniq.someproject.api.SomeCommand;
 import com.axoniq.someproject.api.SomeEvent;
 import com.axoniq.someproject.api.StatusChangedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
+import org.axonframework.modelling.command.AggregateMember;
 import org.axonframework.spring.stereotype.Aggregate;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;
@@ -35,6 +44,15 @@ public class SomeAggregate {
     @AggregateIdentifier
     private String id;
     private String status;
+
+    @AggregateMember
+    private SingleAggregateChild child;
+
+    @AggregateMember
+    private final List<SomeAggregateChild> childList = new ArrayList<>();
+
+    @AggregateMember
+    private final Map<String, SomeAggregateChild> childMap = new HashMap<>();
 
     @CommandHandler
     public SomeAggregate(SomeCommand command) {
@@ -49,6 +67,16 @@ public class SomeAggregate {
         apply(new StatusChangedEvent(command.id(), command.newStatus()));
     }
 
+    @CommandHandler
+    public void handleAddToList(AddChildToListCommand command) {
+        apply(new ChildAddedToListEvent(command.id(), command.property()));
+    }
+
+    @CommandHandler
+    public void handleAddToMap(AddChildToMapCommand command) {
+        apply(new ChildAddedToMapEvent(command.id(), command.key(), command.property()));
+    }
+
     @EventSourcingHandler
     protected void onSomeEvent(SomeEvent event) {
         this.id = event.id();
@@ -59,6 +87,15 @@ public class SomeAggregate {
         this.status = event.newStatus();
     }
 
+    @EventSourcingHandler
+    protected void onAddedToList(ChildAddedToListEvent event) {
+        this.childList.add(new SomeAggregateChild(event.id(), event.property()));
+    }
+
+    @EventSourcingHandler
+    protected void onAddedToMap(ChildAddedToMapEvent event) {
+        this.childMap.put(event.key(), new SomeAggregateChild(event.id(), event.property()));
+    }
 
     public SomeAggregate() {
         // Required by Axon to construct an empty instance to initiate Event Sourcing.

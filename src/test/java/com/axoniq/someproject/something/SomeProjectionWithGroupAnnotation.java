@@ -24,6 +24,7 @@ import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.queryhandling.QueryHandler;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @ProcessingGroup("some_group")
@@ -37,7 +38,7 @@ public class SomeProjectionWithGroupAnnotation {
     }
 
     @QueryHandler
-    public SomeResult handle(SomeQuery query) {
-        return new SomeResult(ids);
+    public List<SomeResult> handle(SomeQuery query) {
+        return ids.stream().map(SomeResult::new).toList();
     }
 }
