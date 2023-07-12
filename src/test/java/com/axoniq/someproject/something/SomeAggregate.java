@@ -28,7 +28,7 @@ import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateMember;
-import org.axonframework.spring.stereotype.Aggregate;
+import org.axonframework.modelling.command.AggregateRoot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +38,7 @@ import java.util.Objects;
 
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 
-@Aggregate
+@AggregateRoot(type = "some_aggregate")
 public class SomeAggregate {
 
     @AggregateIdentifier

@@ -213,10 +213,8 @@ public class AxonRuntimeHints implements RuntimeHintsRegistrar {
     private Optional<Class<?>> getTypeArgument(Type type, int index) {
         if (type instanceof ParameterizedType paramType) {
             Type[] argTypes = paramType.getActualTypeArguments();
-            if (argTypes.length > index) {
-                if (argTypes[index] instanceof Class<?> clazz) {
-                    return Optional.of(clazz);
-                }
+            if (argTypes.length > index && argTypes[index] instanceof Class<?> clazz) {
+                return Optional.of(clazz);
             }
         }
         return Optional.empty();
