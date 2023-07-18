@@ -30,9 +30,14 @@ import org.axonframework.messaging.annotation.MessageHandler;
 import org.axonframework.messaging.responsetypes.InstanceResponseType;
 import org.axonframework.messaging.responsetypes.MultipleInstancesResponseType;
 import org.axonframework.messaging.responsetypes.OptionalResponseType;
+import org.axonframework.modelling.saga.MetaDataAssociationResolver;
+import org.axonframework.modelling.saga.PayloadAssociationResolver;
 import org.axonframework.modelling.command.AggregateMember;
 import org.axonframework.modelling.saga.repository.jpa.SagaEntry;
+import org.axonframework.modelling.saga.repository.jpa.SerializedSaga;
 import org.axonframework.queryhandling.QueryHandler;
+import org.axonframework.serialization.SerializedMessage;
+import org.axonframework.serialization.SerializedMetaData;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.axonframework.spring.stereotype.Saga;
 import org.springframework.aot.hint.MemberCategory;
@@ -68,8 +73,8 @@ import java.util.stream.Stream;
 
 /**
  * This class is used to set runtime hints for axon applications. It finds the root package, and starts from there to
- * search for Axon Framework classes, and add reflection hints. From those classes it tries to find all the API classes, which
- * need to have there constructors and methods available for serialization.
+ * search for Axon Framework classes, and add reflection hints. From those classes it tries to find all the API classes,
+ * which need to have their constructors and methods available for serialization.
  *
  * @author Gerard Klijs
  * @since 4.8.0
@@ -161,6 +166,9 @@ public class AxonRuntimeHints implements RuntimeHintsRegistrar {
 
     private List<Class<?>> axonSerializableClasses() {
         return List.of(SagaEntry.class,
+                       SerializedSaga.class,
+                       SerializedMessage.class,
+                       SerializedMetaData.class,
                        GlobalSequenceTrackingToken.class,
                        GapAwareTrackingToken.class,
                        MergedTrackingToken.class,
@@ -169,7 +177,9 @@ public class AxonRuntimeHints implements RuntimeHintsRegistrar {
                        ConfigToken.class,
                        InstanceResponseType.class,
                        OptionalResponseType.class,
-                       MultipleInstancesResponseType.class);
+                       MultipleInstancesResponseType.class,
+                       PayloadAssociationResolver.class,
+                       MetaDataAssociationResolver.class);
     }
 
     private void addClassesUsedInAggregateConstructors(Set<Class<?>> apiClasses, List<Class<?>> axonClasses) {
