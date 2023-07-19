@@ -16,29 +16,28 @@
 
 package org.axonframework.springboot.nativex.autoconfig;
 
-import org.axonframework.axonserver.connector.AxonServerConfiguration;
-import org.axonframework.axonserver.connector.TargetContextResolver;
+import jakarta.persistence.EntityManager;
+import org.axonframework.common.jpa.EntityManagerProvider;
+import org.axonframework.common.jpa.SimpleEntityManagerProvider;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 
 /**
- * Configuration to help enabling native compilation. For example by preventing the use of lambda's.
+ * Configuration to provide a {@link SimpleEntityManagerProvider} instead of the
+ * {@code ContainerManagedEntityManagerProvider} which doesn't work when compiled to native.
  *
  * @author Gerard Klijs
  * @since 4.8.0
  */
 @AutoConfiguration
-@AutoConfigureBefore(name = "org.axonframework.springboot.autoconfig.AxonServerAutoConfiguration")
-@ConditionalOnClass(AxonServerConfiguration.class)
-public class NativeAutoConfiguration {
+@AutoConfigureBefore(name = "org.axonframework.springboot.autoconfig.JpaAutoConfiguration")
+@ConditionalOnBean(EntityManager.class)
+public class SimpleEntityManagerProviderAutoConfiguration {
 
-    @ConditionalOnMissingBean
     @Bean
-    @SuppressWarnings("rawtypes")
-    public TargetContextResolver targetContextResolver() {
-        return new DefaultTargetContextResolver<>(null);
+    public EntityManagerProvider entityManagerProvider(EntityManager entityManager) {
+        return new SimpleEntityManagerProvider(entityManager);
     }
 }
