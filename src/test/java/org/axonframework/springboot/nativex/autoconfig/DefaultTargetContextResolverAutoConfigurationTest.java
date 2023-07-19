@@ -25,11 +25,11 @@ import org.springframework.test.context.ContextConfiguration;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Tests native autoconfiguration
+ * Tests the {@link DefaultTargetContextResolverAutoConfiguration} providing a {@link DefaultTargetContextResolver}.
  *
  * @author Gerard Klijs
  */
-class NativeAutoConfigurationTest {
+class DefaultTargetContextResolverAutoConfigurationTest {
 
     @Test
     void defaultContextResolverIsPresent() {
