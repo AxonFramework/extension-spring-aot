@@ -31,7 +31,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: axon-spring-native-${{ env.VERSION }}
+        tag_name: axon-spring-aot-${{ env.VERSION }}
         release_name: Axon Spring AOT Extension v${{ env.VERSION }}
         body_path: ${{ env.RELEASE_NOTES_FILE }}
         draft: true

@@ -1,6 +1,6 @@
 ---
 name: 'Enhancement request'
-about: 'Suggest an enhancement/change to an existing feature for the Spring Native Extension'
+about: 'Suggest an enhancement/change to an existing feature for the Spring Ahead of Time Extension'
 title:
 labels: 'Type: Enhancement'
 ---
@@ -13,11 +13,11 @@ labels: 'Type: Enhancement'
 
 ### Current Behaviour
 
-<!-- Please share the current behaviour of the Spring Native Extension around this topic, if applicable. -->
+<!-- Please share the current behaviour of the Spring Ahead of Time Extension around this topic, if applicable. -->
 
 ### Wanted Behaviour
 
-<!-- Please describe the desired outcome through the Spring Native Extension around the suggested enhancement. -->
+<!-- Please describe the desired outcome through the Spring Ahead of Time Extension around the suggested enhancement. -->
 
 ### Possible Workarounds
 

@@ -1,6 +1,6 @@
 ---
 name: 'Bug report'
-about: 'Report a bug for the Spring Native Extension'
+about: 'Report a bug for the Spring Ahead of Time Extension'
 title:
 labels: 'Type: Bug'
 ---
@@ -10,9 +10,9 @@ labels: 'Type: Bug'
 ### Basic information
 
 * Axon Framework version:
-* JDK version:  
-* Spring Native version:
-* Spring Native Extension version:
+* JDK version:
+* Spring (Boot) version:
+* Spring Ahead of Time Extension version:
 * Complete executable reproducer if available (e.g. GitHub Repo):
 
 ### Steps to reproduce
