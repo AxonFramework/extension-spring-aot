@@ -26,7 +26,7 @@
 
     <name>Axon Framework - Spring Ahead of Time</name>
     <description>
-        Extension for Axon Framework providing support for Spring's ahead of time optimizations.
+        Extension for Axon Framework providing support for Spring's Ahead of Time optimizations.
     </description>
 
     <inceptionYear>2022</inceptionYear>
@@ -39,7 +39,7 @@
     </licenses>
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/AxonFramework/extension-spring-native/issues</url>
+        <url>https://github.com/AxonFramework/extension-spring-aot/issues</url>
     </issueManagement>
 
     <properties>
@@ -331,9 +331,9 @@
         </repository>
     </distributionManagement>
     <scm>
-        <connection>scm:git:git://github.com/AxonFramework/extension-spring-native.git</connection>
-        <developerConnection>scm:git:git@github.com:AxonFramework/extension-spring-native.git</developerConnection>
-        <url>https://github.com/AxonFramework/extension-spring-native</url>
+        <connection>scm:git:git://github.com/AxonFramework/extension-spring-aot.git</connection>
+        <developerConnection>scm:git:git@github.com:AxonFramework/extension-spring-aot.git</developerConnection>
+        <url>https://github.com/AxonFramework/extension-spring-aot</url>
         <tag>HEAD</tag>
     </scm>
 

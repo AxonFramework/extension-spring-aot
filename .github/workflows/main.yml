@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - axon-spring-native-*.*.x
+      - axon-spring-aot-*.*.x
 
 jobs:
   build:
@@ -45,7 +45,7 @@ jobs:
         if: matrix.sonar-enabled
         run: |
           ./mvnw -B -Dstyle.color=always sonar:sonar \
-          -Dsonar.projectKey=AxonFramework_extension-spring-native \
+          -Dsonar.projectKey=AxonFramework_extension-spring-aot \
           -Dsonar.organization=axonframework \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
