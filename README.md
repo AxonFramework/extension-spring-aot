@@ -13,8 +13,10 @@ The framework provides sensible defaults for all of these components out of the 
 This set up helps you create a well-structured application without having to bother with the infrastructure.
 The main focus can thus become your business functionality.
 
-Axon Framework's Spring Native Extension provides integration with [Spring Native](https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/).
-This extension provides support for compiling Axon and Spring applications to native executables using the [GraalVM](https://www.graalvm.org/) native-image compiler.
+Axon Framework's Spring AOT Extension provides integration
+with [Spring AOT](https://docs.spring.io/spring-boot/docs/current/reference/html/native-image.html#native-image.introducing-graalvm-native-images.understanding-aot-processing).
+This extension provides support for compiling Axon and Spring applications to native executables using
+the [GraalVM](https://www.graalvm.org/) native-image compiler.
 
 For more information on anything Axon, please visit our website, [http://axoniq.io](http://axoniq.io).
 

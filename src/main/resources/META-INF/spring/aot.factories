@@ -1,5 +1,5 @@
 org.springframework.aot.hint.RuntimeHintsRegistrar=\
-org.axonframework.springboot.nativex.AxonRuntimeHints
+org.axonframework.springboot.aot.AxonRuntimeHints
 
 org.springframework.beans.factory.aot.BeanFactoryInitializationAotProcessor=\
-org.axonframework.springboot.nativex.MessageHandlerRuntimeHintsRegistrar
+org.axonframework.springboot.aot.MessageHandlerRuntimeHintsRegistrar

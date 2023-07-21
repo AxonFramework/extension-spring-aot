@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.axonframework.springboot.nativex.autoconfig;
+package org.axonframework.springboot.aot.autoconfig;
 
 import org.axonframework.axonserver.connector.AxonServerConfiguration;
 import org.axonframework.axonserver.connector.TargetContextResolver;
@@ -26,7 +26,7 @@ import org.springframework.context.annotation.Bean;
 
 /**
  * Configuration to prevent the use of a lambda for the {@link TargetContextResolver} which isn't compatible with
- * native.
+ * compiling ahead of time.
  *
  * @author Gerard Klijs
  * @since 4.8.0

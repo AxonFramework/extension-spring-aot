@@ -1,4 +1,4 @@
-name: Spring Native Extension
+name: Spring AOT Extension
 
 on:
   pull_request:

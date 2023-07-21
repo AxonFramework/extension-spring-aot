@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.axonframework.springboot.nativex.autoconfig;
+package org.axonframework.springboot.aot.autoconfig;
 
 import org.axonframework.axonserver.connector.TargetContextResolver;
 import org.junit.jupiter.api.*;
