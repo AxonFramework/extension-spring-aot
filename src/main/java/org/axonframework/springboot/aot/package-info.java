@@ -15,6 +15,6 @@
  */
 
 @NonNullApi
-package org.axonframework.springboot.nativex;
+package org.axonframework.springboot.aot;
 
 import org.springframework.lang.NonNullApi;

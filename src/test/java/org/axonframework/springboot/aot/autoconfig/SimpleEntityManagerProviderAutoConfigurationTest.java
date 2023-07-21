@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.axonframework.springboot.nativex.autoconfig;
+package org.axonframework.springboot.aot.autoconfig;
 
 import jakarta.persistence.EntityManager;
 import org.axonframework.common.jpa.EntityManagerProvider;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.axonframework.springboot.nativex.autoconfig;
+package org.axonframework.springboot.aot.autoconfig;
 
 import jakarta.persistence.EntityManager;
 import org.axonframework.common.jpa.EntityManagerProvider;
@@ -26,7 +26,7 @@ import org.springframework.context.annotation.Bean;
 
 /**
  * Configuration to provide a {@link SimpleEntityManagerProvider} instead of the
- * {@code ContainerManagedEntityManagerProvider} which doesn't work when compiled to native.
+ * {@code ContainerManagedEntityManagerProvider} which doesn't work when compiled ahead of time.
  *
  * @author Gerard Klijs
  * @since 4.8.0

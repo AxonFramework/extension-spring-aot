@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package org.axonframework.springboot.nativex.autoconfig;
+package org.axonframework.springboot.aot.autoconfig;
 
 import org.axonframework.axonserver.connector.TargetContextResolver;
 import org.axonframework.messaging.Message;
 
 /**
- * Context resolver that doesn't rely on lambda's, so it works also when compiling to native.
+ * Context resolver that doesn't rely on lambda's, so it works also when compiling ahead of time.
  *
  * @param <T> the type of {@link Message} to resolve the context for
  * @author Gerard Klijs

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.axonframework.springboot.nativex;
+package org.axonframework.springboot.aot;
 
 
 import io.netty.channel.epoll.EpollChannelOption;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.axonframework.springboot.nativex.autoconfig;
+package org.axonframework.springboot.aot.autoconfig;
 
 import com.axoniq.someproject.api.SomeCommand;
 import org.axonframework.commandhandling.CommandMessage;
