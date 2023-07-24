@@ -46,19 +46,33 @@
         <!-- Build / Plugins -->
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
         <!-- Main -->
         <axon.version>4.8.0</axon.version>
         <spring.version>6.0.11</spring.version>
         <spring-boot.version>3.1.2</spring-boot.version>
-        <!-- Other -->
-        <jackson.version>2.15.2</jackson.version>
+        <!-- Database -->
         <jakarta.persistence.version>3.1.0</jakarta.persistence.version>
+        <!-- Serialization -->
+        <jackson.version>2.15.2</jackson.version>
         <!-- Testing -->
-        <junit.jupiter.version>5.9.3</junit.jupiter.version>
         <assertj.version>3.24.2</assertj.version>
+        <junit.jupiter.version>5.9.3</junit.jupiter.version>
         <mockito.version>5.4.0</mockito.version>
         <netty.version>4.1.95.Final</netty.version>
+        <!-- Build / Plugin -->
+        <jacoco-maven.version>0.8.8</jacoco-maven.version>
+        <maven-assembly.version>3.6.0</maven-assembly.version>
+        <maven-clean.version>3.3.1</maven-clean.version>
+        <maven-compiler.version>3.11.0</maven-compiler.version>
+        <maven-deploy.version>3.1.1</maven-deploy.version>
+        <maven-gpg.version>3.1.0</maven-gpg.version>
+        <maven-install.version>3.1.1</maven-install.version>
+        <maven-jar.version>3.3.0</maven-jar.version>
+        <maven-javadoc.version>3.5.0</maven-javadoc.version>
+        <maven-release.version>3.0.1</maven-release.version>
+        <maven-source.version>3.3.0</maven-source.version>
+        <maven-surefire.version>3.1.2</maven-surefire.version>
+        <maven-resources.version>3.3.1</maven-resources.version>
     </properties>
 
     <dependencies>
@@ -83,30 +97,16 @@
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
+            <artifactId>spring-core-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>${spring.version}</version>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
-            <version>${spring-boot.version}</version>
-            <optional>true</optional>
-        </dependency>
-        <!-- Other -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.persistence</groupId>
-            <artifactId>jakarta.persistence-api</artifactId>
-            <version>${jakarta.persistence.version}</version>
-            <optional>true</optional>
-        </dependency>
-        <!-- Testing -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
@@ -114,10 +114,10 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core-test</artifactId>
-            <version>${spring.version}</version>
-            <scope>test</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <version>${spring-boot.version}</version>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -125,16 +125,31 @@
             <version>${spring-boot.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- Database -->
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>${junit.jupiter.version}</version>
-            <scope>test</scope>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+            <version>${jakarta.persistence.version}</version>
+            <optional>true</optional>
         </dependency>
+        <!-- Serialization -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <!-- Testing -->
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>${assertj.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -156,56 +171,29 @@
             <plugins>
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.3.1</version>
+                    <version>${maven-clean.version}</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-install-plugin</artifactId>
-                    <version>3.1.1</version>
+                    <version>${maven-install.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
+
         <plugins>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.3.1</version>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>3.1.1</version>
-            </plugin>
+            <!-- compile -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>${maven-compiler.version}</version>
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.6.0</version>
-                <configuration>
-                    <descriptorSourceDirectory>assembly</descriptorSourceDirectory>
-                    <archiverConfig>
-                        <duplicateBehavior>skip</duplicateBehavior>
-                    </archiverConfig>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>3.0.1</version>
-                <configuration>
-                    <mavenExecutorId>forked-path</mavenExecutorId>
-                    <localCheckout>true</localCheckout>
-                    <pushChanges>false</pushChanges>
-                </configuration>
-            </plugin>
+            <!-- test -->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.1.2</version>
+                <version>${maven-surefire.version}</version>
                 <configuration>
                     <includes>
                         <include>**/*Test.java</include>
@@ -215,13 +203,35 @@
                     </includes>
                 </configuration>
             </plugin>
+            <!-- package -->
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${maven-assembly.version}</version>
+                <configuration>
+                    <descriptorSourceDirectory>assembly</descriptorSourceDirectory>
+                    <archiverConfig>
+                        <duplicateBehavior>skip</duplicateBehavior>
+                    </archiverConfig>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar.version}</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.5.0</version>
+                <version>${maven-javadoc.version}</version>
                 <executions>
                     <execution>
                         <id>attach-javadoc</id>
-                        <phase>deploy</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>jar</goal>
                         </goals>
@@ -232,19 +242,8 @@
                 </configuration>
             </plugin>
             <plugin>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.3.0</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.3.0</version>
+                <version>${maven-source.version}</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -255,39 +254,35 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- deploy -->
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>${maven-deploy.version}</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${maven-release.version}</version>
+                <configuration>
+                    <!-- prepare goal configuration -->
+                    <mavenExecutorId>forked-path</mavenExecutorId>
+                    <pushChanges>false</pushChanges>
+                    <!-- perform goal configuration -->
+                    <mavenExecutorId>forked-path</mavenExecutorId>
+                    <localCheckout>true</localCheckout>
+                    <releaseProfiles>release-sign-artifacts</releaseProfiles>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven-resources.version}</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
     <profiles>
-        <profile>
-            <id>release-sign-artifacts</id>
-            <activation>
-                <property>
-                    <name>performRelease</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.1.0</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <!--suppress MavenModelInspection -->
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
         <profile>
             <id>coverage</id>
             <build>
@@ -295,7 +290,7 @@
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>${jacoco-maven-plugin.version}</version>
+                        <version>${jacoco-maven.version}</version>
 
                         <executions>
                             <execution>
@@ -308,6 +303,28 @@
                                 <phase>prepare-package</phase>
                                 <goals>
                                     <goal>report</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>release-sign-artifacts</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <!--suppress MavenModelInspection -->
+                                    <goal>sign</goal>
                                 </goals>
                             </execution>
                         </executions>
@@ -330,6 +347,7 @@
             <uniqueVersion>false</uniqueVersion>
         </repository>
     </distributionManagement>
+
     <scm>
         <connection>scm:git:git://github.com/AxonFramework/extension-spring-aot.git</connection>
         <developerConnection>scm:git:git@github.com:AxonFramework/extension-spring-aot.git</developerConnection>
@@ -359,6 +377,15 @@
         <developer>
             <name>Gerard Klijs</name>
             <email>gerard.klijs@axoniq.io</email>
+            <organization>AxonIQ</organization>
+            <organizationUrl>https://axoniq.io</organizationUrl>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Mitchell Herrijgers</name>
+            <email>mitchell.herrijgers@axoniq.io</email>
             <organization>AxonIQ</organization>
             <organizationUrl>https://axoniq.io</organizationUrl>
             <roles>
