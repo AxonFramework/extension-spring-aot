@@ -1,12 +1,12 @@
 # Contribution Guidelines
 
-Thank you for your interest in contributing to the Axon Framework Spring Native Extension. To make sure using Axon is a 
-smooth experience for everybody, we've set up a number of guidelines to follow.
+Thank you for your interest in contributing to the Axon Framework Spring Ahead of Time Extension. To make sure using
+Axon is a smooth experience for everybody, we've set up a number of guidelines to follow.
 
 There are different ways in which you can contribute to the framework:
 
 1. You can report any bugs, feature requests or ideas about improvements on
-   our [issue page](https://github.com/AxonFramework/extension-spring-native/issues/new/choose). All ideas are welcome. 
+   our [issue page](https://github.com/AxonFramework/extension-spring-aot/issues/new/choose). All ideas are welcome.
    Please be as exact as possible when reporting bugs. This will help us reproduce and thus solve the problem faster.
 2. If you have created a component for your own application that you think might be useful to include in the framework,
    send us a pull request (or a patch / zip containing the source code). We will evaluate it and try to fit it in the
@@ -22,9 +22,10 @@ If you're contributing code, please take care of the following:
 
 To keep everyone out of trouble (both you and us), we require that all contributors (digitally) sign a Contributor
 License Agreement. Basically, the agreement says that we may freely use the code you contribute to the Axon Framework
-Spring Native Extension, and that we won't hold you liable for any unfortunate side effects that the code may cause.
+Spring Ahead of Time Extension, and that we won't hold you liable for any unfortunate side effects that the code may
+cause.
 
-To sign the CLA, visit: https://cla-assistant.io/AxonFramework/extension-spring-native
+To sign the CLA, visit: https://cla-assistant.io/AxonFramework/extension-spring-aot
 
 ### Code Style
 

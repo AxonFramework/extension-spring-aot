@@ -1,0 +1,2 @@
+org.axonframework.springboot.aot.autoconfig.DefaultTargetContextResolverAutoConfiguration
+org.axonframework.springboot.aot.autoconfig.SimpleEntityManagerProviderAutoConfiguration

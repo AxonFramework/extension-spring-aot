@@ -1,4 +1,4 @@
-name: Spring Native Extension
+name: Spring AOT Extension
 
 on:
   pull_request:
@@ -11,8 +11,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - java-version: 11
-            sonar-enabled: false
           - java-version: 17
             sonar-enabled: true
 
@@ -44,7 +42,7 @@ jobs:
         if: ${{ success() && matrix.sonar-enabled && github.event.pull_request.head.repo.full_name == github.repository }}
         run: |
           ./mvnw -B -Dstyle.color=always sonar:sonar \
-          -Dsonar.projectKey=AxonFramework_extension-spring-native \
+          -Dsonar.projectKey=AxonFramework_extension-spring-aot \
           -Dsonar.organization=axonframework \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.login=${{ secrets.SONAR_TOKEN }}

@@ -1,6 +1,6 @@
 ---
 name: 'Feature request'
-about: 'Suggest a feature for the Spring Native Extension'
+about: 'Suggest a feature for the Spring Ahead of Time Extension'
 title:
 labels: 'Type: Feature'
 ---
@@ -16,11 +16,11 @@ labels: 'Type: Feature'
 
 ### Current Behaviour
 
-<!-- Please share the current behaviour of the Spring Native Extension around this topic, if applicable. -->
+<!-- Please share the current behaviour of the Spring Ahead of Time Extension around this topic, if applicable. -->
 
 ### Wanted Behaviour
 
-<!-- Please describe the desired outcome through the Spring Native Extension around the suggested feature. -->
+<!-- Please describe the desired outcome through the Spring Ahead of Time Extension around the suggested feature. -->
 
 ### Possible Workarounds
 
