@@ -19,11 +19,12 @@ package org.axonframework.springboot.aot.autoconfig;
 import jakarta.persistence.EntityManager;
 import org.axonframework.common.jpa.EntityManagerProvider;
 import org.axonframework.common.jpa.SimpleEntityManagerProvider;
+import org.axonframework.config.ConfigurationResourceInjector;
+import org.axonframework.modelling.saga.ResourceInjector;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,7 +35,7 @@ import static org.mockito.Mockito.*;
  *
  * @author Gerard Klijs
  */
-class SimpleEntityManagerProviderAutoConfigurationTest {
+class ResourceInjectorAutoConfigurationTest {
 
     @Test
     void defaultContextResolverIsPresent() {
@@ -42,9 +43,9 @@ class SimpleEntityManagerProviderAutoConfigurationTest {
                 .withUserConfiguration(TestContext.class)
                 .withPropertyValues("axon.axonserver.enabled=false")
                 .run(context -> {
-                    EntityManagerProvider entityManagerProvider = context.getBean(EntityManagerProvider.class);
-                    assertNotNull(entityManagerProvider);
-                    assertTrue(entityManagerProvider instanceof SimpleEntityManagerProvider);
+                    ResourceInjector resourceInjector = context.getBean(ResourceInjector.class);
+                    assertNotNull(resourceInjector);
+                    assertTrue(resourceInjector instanceof ConfigurationResourceInjector);
                 });
     }
 
@@ -52,7 +53,6 @@ class SimpleEntityManagerProviderAutoConfigurationTest {
     @ContextConfiguration
     @EnableAutoConfiguration
     private static class TestContext {
-
 
     }
 }

@@ -35,6 +35,7 @@ class DefaultTargetContextResolverAutoConfigurationTest {
     void defaultContextResolverIsPresent() {
         new ApplicationContextRunner()
                 .withUserConfiguration(TestContext.class)
+                .withPropertyValues("axon.axonserver.enabled=false")
                 .run(context -> {
                     TargetContextResolver<?> resolver = context.getBean(TargetContextResolver.class);
                     assertNotNull(resolver);

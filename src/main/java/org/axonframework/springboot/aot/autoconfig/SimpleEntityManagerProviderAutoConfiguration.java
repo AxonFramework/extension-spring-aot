@@ -17,9 +17,11 @@
 package org.axonframework.springboot.aot.autoconfig;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import org.axonframework.common.jpa.EntityManagerProvider;
 import org.axonframework.common.jpa.SimpleEntityManagerProvider;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
@@ -33,7 +35,8 @@ import org.springframework.context.annotation.Bean;
  */
 @AutoConfiguration
 @AutoConfigureBefore(name = "org.axonframework.springboot.autoconfig.JpaAutoConfiguration")
-@ConditionalOnBean(EntityManager.class)
+@AutoConfigureAfter(name = "org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration")
+@ConditionalOnBean(EntityManagerFactory.class)
 public class SimpleEntityManagerProviderAutoConfiguration {
 
     @Bean
