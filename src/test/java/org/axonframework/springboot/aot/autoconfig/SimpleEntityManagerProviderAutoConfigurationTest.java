@@ -27,7 +27,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 /**
  * Tests the {@link SimpleEntityManagerProviderAutoConfiguration} providing a {@link SimpleEntityManagerProvider}.
@@ -37,9 +36,9 @@ import static org.mockito.Mockito.*;
 class SimpleEntityManagerProviderAutoConfigurationTest {
 
     @Test
-    void defaultContextResolverIsPresent() {
+    void defaultSimpleEntityManagerIsConfigured() {
         new ApplicationContextRunner()
-                .withUserConfiguration(TestContext.class)
+                .withUserConfiguration(EmptyTestContext.class)
                 .withPropertyValues("axon.axonserver.enabled=false")
                 .run(context -> {
                     EntityManagerProvider entityManagerProvider = context.getBean(EntityManagerProvider.class);
@@ -48,11 +47,38 @@ class SimpleEntityManagerProviderAutoConfigurationTest {
                 });
     }
 
+    @Test
+    void customSimpleEntityManagerIsConfigured() {
+        new ApplicationContextRunner()
+                .withUserConfiguration(CustomerEntityManagerContext.class)
+                .withPropertyValues("axon.axonserver.enabled=false")
+                .run(context -> {
+                    EntityManagerProvider entityManagerProvider = context.getBean(EntityManagerProvider.class);
+                    assertNotNull(entityManagerProvider);
+                    assertTrue(entityManagerProvider instanceof CustomerEntityManagerContext.CustomEntityManagerProvider);
+                });
+    }
 
     @ContextConfiguration
     @EnableAutoConfiguration
-    private static class TestContext {
+    private static class EmptyTestContext {
+
+    }
+
+    @Configuration
+    private static class CustomerEntityManagerContext {
+
+        @Bean
+        EntityManagerProvider customEntityManagerProvider() {
+            return new CustomEntityManagerProvider();
+        }
 
 
+        private static class CustomEntityManagerProvider implements EntityManagerProvider {
+            @Override
+            public EntityManager getEntityManager() {
+                return null;
+            }
+        }
     }
 }

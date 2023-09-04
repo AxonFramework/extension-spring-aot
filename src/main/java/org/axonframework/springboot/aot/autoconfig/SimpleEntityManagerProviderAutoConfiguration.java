@@ -24,6 +24,7 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 
 /**
@@ -39,6 +40,7 @@ import org.springframework.context.annotation.Bean;
 @ConditionalOnBean(EntityManagerFactory.class)
 public class SimpleEntityManagerProviderAutoConfiguration {
 
+    @ConditionalOnMissingBean
     @Bean
     public EntityManagerProvider entityManagerProvider(EntityManager entityManager) {
         return new SimpleEntityManagerProvider(entityManager);
