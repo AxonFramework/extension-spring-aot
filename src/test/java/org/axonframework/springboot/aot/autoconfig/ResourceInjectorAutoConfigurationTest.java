@@ -16,37 +16,25 @@
 
 package org.axonframework.springboot.aot.autoconfig;
 
-import jakarta.persistence.EntityManager;
-import org.axonframework.common.jpa.EntityManagerProvider;
-import org.axonframework.common.jpa.SimpleEntityManagerProvider;
 import org.axonframework.config.ConfigurationResourceInjector;
 import org.axonframework.modelling.saga.ResourceInjector;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ContextConfiguration;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
-/**
- * Tests the {@link SimpleEntityManagerProviderAutoConfiguration} providing a {@link SimpleEntityManagerProvider}.
- *
- * @author Gerard Klijs
- */
 class ResourceInjectorAutoConfigurationTest {
 
     @Test
-    void defaultContextResolverIsPresent() {
-        new ApplicationContextRunner()
-                .withUserConfiguration(TestContext.class)
-                .withPropertyValues("axon.axonserver.enabled=false")
-                .run(context -> {
-                    ResourceInjector resourceInjector = context.getBean(ResourceInjector.class);
-                    assertNotNull(resourceInjector);
-                    assertTrue(resourceInjector instanceof ConfigurationResourceInjector);
-                });
+    void defaultResourceInjectorIsPresent() {
+        new ApplicationContextRunner().withUserConfiguration(TestContext.class).withPropertyValues(
+                "axon.axonserver.enabled=false").run(context -> {
+            ResourceInjector resourceInjector = context.getBean(ResourceInjector.class);
+            assertNotNull(resourceInjector);
+            assertTrue(resourceInjector instanceof ConfigurationResourceInjector);
+        });
     }
 
 
