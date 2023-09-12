@@ -50,23 +50,22 @@ class SimpleEntityManagerProviderAutoConfigurationTest {
     @Test
     void customSimpleEntityManagerIsConfigured() {
         new ApplicationContextRunner()
-                .withUserConfiguration(CustomerEntityManagerContext.class)
+                .withUserConfiguration(CustomEntityManagerContext.class)
                 .withPropertyValues("axon.axonserver.enabled=false")
                 .run(context -> {
                     EntityManagerProvider entityManagerProvider = context.getBean(EntityManagerProvider.class);
                     assertNotNull(entityManagerProvider);
-                    assertTrue(entityManagerProvider instanceof CustomerEntityManagerContext.CustomEntityManagerProvider);
+                    assertTrue(entityManagerProvider instanceof CustomEntityManagerContext.CustomEntityManagerProvider);
                 });
     }
 
-    @ContextConfiguration
     @EnableAutoConfiguration
     private static class EmptyTestContext {
 
     }
 
-    @Configuration
-    private static class CustomerEntityManagerContext {
+    @EnableAutoConfiguration
+    private static class CustomEntityManagerContext {
 
         @Bean
         EntityManagerProvider customEntityManagerProvider() {
