@@ -23,10 +23,10 @@ import org.junit.jupiter.api.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 /**
  * Tests the {@link SimpleEntityManagerProviderAutoConfiguration} providing a {@link SimpleEntityManagerProvider}.
@@ -36,9 +36,10 @@ import static org.mockito.Mockito.*;
 class SimpleEntityManagerProviderAutoConfigurationTest {
 
     @Test
-    void defaultContextResolverIsPresent() {
+    void defaultSimpleEntityManagerIsConfigured() {
         new ApplicationContextRunner()
-                .withUserConfiguration(TestContext.class)
+                .withUserConfiguration(EmptyTestContext.class)
+                .withPropertyValues("axon.axonserver.enabled=false")
                 .run(context -> {
                     EntityManagerProvider entityManagerProvider = context.getBean(EntityManagerProvider.class);
                     assertNotNull(entityManagerProvider);
@@ -46,14 +47,37 @@ class SimpleEntityManagerProviderAutoConfigurationTest {
                 });
     }
 
+    @Test
+    void customSimpleEntityManagerIsConfigured() {
+        new ApplicationContextRunner()
+                .withUserConfiguration(CustomEntityManagerContext.class)
+                .withPropertyValues("axon.axonserver.enabled=false")
+                .run(context -> {
+                    EntityManagerProvider entityManagerProvider = context.getBean(EntityManagerProvider.class);
+                    assertNotNull(entityManagerProvider);
+                    assertTrue(entityManagerProvider instanceof CustomEntityManagerContext.CustomEntityManagerProvider);
+                });
+    }
 
-    @ContextConfiguration
     @EnableAutoConfiguration
-    private static class TestContext {
+    private static class EmptyTestContext {
+
+    }
+
+    @EnableAutoConfiguration
+    private static class CustomEntityManagerContext {
 
         @Bean
-        public EntityManager getEntityManager() {
-            return mock(EntityManager.class);
+        EntityManagerProvider customEntityManagerProvider() {
+            return new CustomEntityManagerProvider();
+        }
+
+
+        private static class CustomEntityManagerProvider implements EntityManagerProvider {
+            @Override
+            public EntityManager getEntityManager() {
+                return null;
+            }
         }
     }
 }

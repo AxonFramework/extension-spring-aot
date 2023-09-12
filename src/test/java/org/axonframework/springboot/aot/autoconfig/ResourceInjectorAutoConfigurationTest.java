@@ -16,7 +16,8 @@
 
 package org.axonframework.springboot.aot.autoconfig;
 
-import org.axonframework.axonserver.connector.TargetContextResolver;
+import org.axonframework.config.ConfigurationResourceInjector;
+import org.axonframework.modelling.saga.ResourceInjector;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -24,23 +25,16 @@ import org.springframework.test.context.ContextConfiguration;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Tests the {@link DefaultTargetContextResolverAutoConfiguration} providing a {@link DefaultTargetContextResolver}.
- *
- * @author Gerard Klijs
- */
-class DefaultTargetContextResolverAutoConfigurationTest {
+class ResourceInjectorAutoConfigurationTest {
 
     @Test
-    void defaultContextResolverIsPresent() {
-        new ApplicationContextRunner()
-                .withUserConfiguration(TestContext.class)
-                .withPropertyValues("axon.axonserver.enabled=false")
-                .run(context -> {
-                    TargetContextResolver<?> resolver = context.getBean(TargetContextResolver.class);
-                    assertNotNull(resolver);
-                    assertTrue(resolver instanceof DefaultTargetContextResolver);
-                });
+    void defaultResourceInjectorIsPresent() {
+        new ApplicationContextRunner().withUserConfiguration(TestContext.class).withPropertyValues(
+                "axon.axonserver.enabled=false").run(context -> {
+            ResourceInjector resourceInjector = context.getBean(ResourceInjector.class);
+            assertNotNull(resourceInjector);
+            assertTrue(resourceInjector instanceof ConfigurationResourceInjector);
+        });
     }
 
 
