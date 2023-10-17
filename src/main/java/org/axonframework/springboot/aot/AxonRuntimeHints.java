@@ -69,7 +69,7 @@ public class AxonRuntimeHints implements RuntimeHintsRegistrar {
     private void registerGrpcHints(ReflectionHints hints) {
         hints.registerType(
                 TypeReference.of("io.netty.channel.epoll.EpollChannelOption"),
-                MemberCategory.DECLARED_FIELDS);
+                MemberCategory.PUBLIC_FIELDS);
     }
 
     private Type[] axonSerializableClasses() {
