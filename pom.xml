@@ -87,6 +87,12 @@
             <version>${axon.version}</version>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.axonframework</groupId>
+            <artifactId>axon-spring-boot-autoconfigure</artifactId>
+            <version>${axon.version}</version>
+            <scope>test</scope>
+        </dependency>
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -125,24 +131,30 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.axonframework</groupId>
-            <artifactId>axon-spring-boot-autoconfigure</artifactId>
-            <version>${axon.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
             <version>${spring-boot.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring-boot.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.yaml</groupId>
+                    <artifactId>snakeyaml</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- Database -->
+        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>2.2.224</version>
             <scope>test</scope>
         </dependency>
-        <!-- Database -->
         <dependency>
             <groupId>jakarta.persistence</groupId>
             <artifactId>jakarta.persistence-api</artifactId>
@@ -161,12 +173,6 @@
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>${assertj.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
