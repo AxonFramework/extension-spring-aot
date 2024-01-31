@@ -1,0 +1,37 @@
+{
+  "lambdaCapturingTypes": [],
+  "types": [
+    {
+      "condition": {
+        "typeReachable": "io.grpc.netty.shaded.io.netty.channel.epoll.EpollEventLoop"
+      },
+      "name": "java.lang.String"
+    },
+    {
+      "condition": {
+        "typeReachable": "io.grpc.netty.shaded.io.netty.handler.codec.marshalling.MarshallingEncoder"
+      },
+      "name": "java.lang.String"
+    },
+    {
+      "condition": {
+        "typeReachable": "io.grpc.netty.shaded.io.netty.handler.codec.marshalling.MarshallingEncoder"
+      },
+      "name": "java.lang.String",
+      "customTargetConstructorClass": "java.lang.Object"
+    },
+    {
+      "condition": {
+        "typeReachable": "io.grpc.netty.shaded.io.netty.handler.codec.marshalling.MarshallingEncoder"
+      },
+      "name": "java.lang.String",
+      "customTargetConstructorClass": "java.lang.String"
+    },
+    {
+      "condition": {
+        "typeReachable": "io.grpc.netty.shaded.io.netty.util.concurrent.FastThreadLocalRunnable"
+      },
+      "name": "java.lang.String"
+    }
+  ]
+}
