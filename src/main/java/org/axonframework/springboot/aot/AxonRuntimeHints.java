@@ -32,7 +32,6 @@ import org.axonframework.modelling.saga.repository.jpa.SerializedSaga;
 import org.axonframework.serialization.SerializedMessage;
 import org.axonframework.serialization.SerializedMetaData;
 import org.springframework.aot.hint.BindingReflectionHintsRegistrar;
-import org.springframework.aot.hint.MemberCategory;
 import org.springframework.aot.hint.ReflectionHints;
 import org.springframework.aot.hint.RuntimeHints;
 import org.springframework.aot.hint.RuntimeHintsRegistrar;
@@ -56,7 +55,6 @@ public class AxonRuntimeHints implements RuntimeHintsRegistrar {
     @Override
     public void registerHints(RuntimeHints hints, @Nullable ClassLoader classLoader) {
         ReflectionHints reflectionHints = hints.reflection();
-        registerGrpcHints(reflectionHints);
         registrar.registerReflectionHints(reflectionHints, axonSerializableClasses());
         hints.resources().registerPattern("axonserver_download.txt");
         hints.resources().registerPattern("SQLErrorCode.properties");
@@ -64,12 +62,6 @@ public class AxonRuntimeHints implements RuntimeHintsRegistrar {
                 TypeReference.of(Connection.class),
                 TypeReference.of(
                         "org.axonframework.common.jdbc.UnitOfWorkAwareConnectionProviderWrapper$UoWAttachedConnection"));
-    }
-
-    private void registerGrpcHints(ReflectionHints hints) {
-        hints.registerType(
-                TypeReference.of("io.netty.channel.epoll.EpollChannelOption"),
-                MemberCategory.PUBLIC_FIELDS);
     }
 
     private Type[] axonSerializableClasses() {
