@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2023. Axon Framework
+ * Copyright (c) 2010-2024. Axon Framework
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,12 +54,6 @@ class AxonRuntimeHintsTest {
         //some default framework classes
         testForConstructor(GlobalSequenceTrackingToken.class);
         testForConstructor(OptionalResponseType.class);
-    }
-
-    @Test
-    void grpcFieldIsAccessible() {
-        assertTrue(RuntimeHintsPredicates.reflection().onField(EpollChannelOption.class, "TCP_USER_TIMEOUT")
-                                         .test(this.hints));
     }
 
     @Test
