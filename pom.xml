@@ -46,17 +46,17 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <!-- Main -->
-        <axon.version>4.9.2</axon.version>
+        <axon.version>4.9.3</axon.version>
         <spring.version>6.1.4</spring.version>
         <spring-boot.version>3.2.3</spring-boot.version>
         <!-- Database -->
         <jakarta.persistence.version>3.1.0</jakarta.persistence.version>
         <!-- Serialization -->
-        <jackson.version>2.16.1</jackson.version>
+        <jackson.version>2.16.2</jackson.version>
         <!-- Testing -->
         <assertj.version>3.25.3</assertj.version>
         <junit.jupiter.version>5.10.1</junit.jupiter.version>
-        <mockito.version>5.10.0</mockito.version>
+        <mockito.version>5.11.0</mockito.version>
         <netty.version>4.1.107.Final</netty.version>
         <!-- Build / Plugin -->
         <jacoco-maven.version>0.8.11</jacoco-maven.version>
