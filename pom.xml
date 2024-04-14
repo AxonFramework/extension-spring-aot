@@ -47,7 +47,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <!-- Main -->
         <axon.version>4.9.3</axon.version>
-        <spring.version>6.1.5</spring.version>
+        <spring.version>6.1.6</spring.version>
         <spring-boot.version>3.2.4</spring-boot.version>
         <!-- Database -->
         <jakarta.persistence.version>3.1.0</jakarta.persistence.version>
@@ -64,9 +64,9 @@
         <maven-clean.version>3.3.2</maven-clean.version>
         <maven-compiler.version>3.13.0</maven-compiler.version>
         <maven-deploy.version>3.1.1</maven-deploy.version>
-        <maven-gpg.version>3.2.2</maven-gpg.version>
+        <maven-gpg.version>3.2.3</maven-gpg.version>
         <maven-install.version>3.1.1</maven-install.version>
-        <maven-jar.version>3.3.0</maven-jar.version>
+        <maven-jar.version>3.4.0</maven-jar.version>
         <maven-javadoc.version>3.6.3</maven-javadoc.version>
         <maven-release.version>3.0.1</maven-release.version>
         <maven-source.version>3.3.1</maven-source.version>
