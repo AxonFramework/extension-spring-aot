@@ -1,0 +1,4 @@
+:navtitle: Performance Tips
+= Performance Tips
+
+It can be beneficial to move from JPA implementations to JDBC implementations. This likely decreases both the time it takes to compile the image and the time to start the image.
