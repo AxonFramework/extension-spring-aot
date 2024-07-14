@@ -47,30 +47,30 @@
         <maven.compiler.target>17</maven.compiler.target>
         <!-- Main -->
         <axon.version>4.9.3</axon.version>
-        <spring.version>6.1.6</spring.version>
-        <spring-boot.version>3.2.5</spring-boot.version>
+        <spring.version>6.1.11</spring.version>
+        <spring-boot.version>3.3.1</spring-boot.version>
         <!-- Database -->
-        <jakarta.persistence.version>3.1.0</jakarta.persistence.version>
+        <jakarta.persistence.version>3.2.0</jakarta.persistence.version>
         <!-- Serialization -->
-        <jackson.version>2.17.1</jackson.version>
+        <jackson.version>2.17.2</jackson.version>
         <!-- Testing -->
-        <assertj.version>3.25.3</assertj.version>
+        <assertj.version>3.26.3</assertj.version>
         <junit.jupiter.version>5.10.1</junit.jupiter.version>
-        <mockito.version>5.11.0</mockito.version>
-        <netty.version>4.1.109.Final</netty.version>
+        <mockito.version>5.12.0</mockito.version>
+        <netty.version>4.1.111.Final</netty.version>
         <!-- Build / Plugin -->
         <jacoco-maven.version>0.8.12</jacoco-maven.version>
         <maven-assembly.version>3.7.1</maven-assembly.version>
-        <maven-clean.version>3.3.2</maven-clean.version>
+        <maven-clean.version>3.4.0</maven-clean.version>
         <maven-compiler.version>3.13.0</maven-compiler.version>
         <maven-deploy.version>3.1.2</maven-deploy.version>
         <maven-gpg.version>3.2.4</maven-gpg.version>
         <maven-install.version>3.1.2</maven-install.version>
-        <maven-jar.version>3.4.1</maven-jar.version>
-        <maven-javadoc.version>3.6.3</maven-javadoc.version>
-        <maven-release.version>3.0.1</maven-release.version>
+        <maven-jar.version>3.4.2</maven-jar.version>
+        <maven-javadoc.version>3.7.0</maven-javadoc.version>
+        <maven-release.version>3.1.0</maven-release.version>
         <maven-source.version>3.3.1</maven-source.version>
-        <maven-surefire.version>3.2.5</maven-surefire.version>
+        <maven-surefire.version>3.3.1</maven-surefire.version>
         <maven-resources.version>3.3.1</maven-resources.version>
     </properties>
 
