@@ -1,0 +1,14 @@
+name: spring-aot-extension-reference
+title: Spring AOT Extension Guide
+version: true
+prerelease: true
+start_page: ROOT:index.adoc
+
+asciidoc:
+  attributes:
+    component_description: Extension providing native compilation for Axon and Spring-based applications
+    type: extension-reference
+    group: axon-framework
+
+nav:
+  - modules/nav.adoc

@@ -4,7 +4,7 @@ This folder contains the docs related to the Spring Ahead of Time Extension for 
 
 The following are the current documentation sources (folders):
 
-- `extension-guide` : [The Spring AOT Extension guide](https://library.axoniq.io/springaot_extension_guide/main/index.html)
+- `extension-guide` : [The Spring AOT Extension guide](https://library.axoniq.io/spring-aot-extension-reference/main/index.html)
 
 ## Contributing to the docs.
 
