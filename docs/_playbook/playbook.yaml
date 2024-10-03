@@ -1,6 +1,6 @@
 site:
   title: Spring AOT Extension docs PREVIEW
-  start_page: springaot_extension_guide::index.adoc
+  start_page: spring-aot-extension-reference::index.adoc
 
 content:
   sources:
