@@ -1,4 +1,4 @@
-* xref::index.adoc[]
-** xref::compile-to-native.adoc[]
-** xref::performance.adoc[]
+
+* xref::compile-to-native.adoc[]
+* xref::performance.adoc[]
 * xref::release-notes.adoc[]
