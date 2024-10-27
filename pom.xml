@@ -48,7 +48,7 @@
         <!-- Main -->
         <axon.version>4.10.1</axon.version>
         <spring.version>6.1.14</spring.version>
-        <spring-boot.version>3.3.4</spring-boot.version>
+        <spring-boot.version>3.3.5</spring-boot.version>
         <!-- Database -->
         <jakarta.persistence.version>3.1.0</jakarta.persistence.version>
         <!-- Serialization -->
