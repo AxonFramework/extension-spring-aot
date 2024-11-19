@@ -57,7 +57,7 @@
         <assertj.version>3.26.3</assertj.version>
         <junit.jupiter.version>5.10.1</junit.jupiter.version>
         <mockito.version>5.14.2</mockito.version>
-        <netty.version>4.1.114.Final</netty.version>
+        <netty.version>4.1.115.Final</netty.version>
         <!-- Build / Plugin -->
         <jacoco-maven.version>0.8.12</jacoco-maven.version>
         <maven-assembly.version>3.7.1</maven-assembly.version>
