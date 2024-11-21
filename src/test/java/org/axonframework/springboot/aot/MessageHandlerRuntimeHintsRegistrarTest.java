@@ -30,6 +30,8 @@ import com.axoniq.someproject.something.SomeAggregate;
 import com.axoniq.someproject.something.SomeAggregateChild;
 import com.axoniq.someproject.something.SomeProjectionWithGroupAnnotation;
 import com.axoniq.someproject.something.SomeProjectionWithoutGroupAnnotation;
+import org.axonframework.modelling.command.ForwardMatchingInstances;
+import org.axonframework.modelling.command.ForwardToAll;
 import org.junit.jupiter.api.*;
 import org.springframework.aot.hint.predicate.RuntimeHintsPredicates;
 import org.springframework.aot.test.generate.TestGenerationContext;
@@ -51,8 +53,6 @@ class MessageHandlerRuntimeHintsRegistrarTest {
     @BeforeEach
     void processAheadOfTime() {
         addClassToBeanFactory(SomeAggregate.class);
-        addClassToBeanFactory(SingleAggregateChild.class);
-        addClassToBeanFactory(SomeAggregateChild.class);
         addClassToBeanFactory(SomeProjectionWithGroupAnnotation.class);
         addClassToBeanFactory(SomeProjectionWithoutGroupAnnotation.class);
         new ApplicationContextAotGenerator().processAheadOfTime(this.applicationContext, this.generationContext);
@@ -85,6 +85,22 @@ class MessageHandlerRuntimeHintsRegistrarTest {
         testReflectionMethod(SomeProjectionWithoutGroupAnnotation.class, "on");
         testReflectionMethod(SingleAggregateChild.class, "handle");
         testReflectionMethod(SomeAggregateChild.class, "handle");
+    }
+
+    @Test
+    void handlerInterceptorsHaveReflectiveHints() {
+        testReflectionMethod(SomeAggregate.class, "intercept");
+        testReflectionMethod(SomeAggregate.class, "exceptionHandler");
+        testReflectionMethod(SingleAggregateChild.class, "intercept");
+    }
+
+    @Test
+    void childEntitiesHaveReflectiveHints() {
+        testReflectionMethod(SomeAggregateChild.class, "handle");
+        testReflectionMethod(SingleAggregateChild.class, "intercept");
+        testReflectionMethod(SingleAggregateChild.class, "handle");
+        testForConstructor(ForwardMatchingInstances.class);
+        testForConstructor(ForwardToAll.class);
     }
 
     private void addClassToBeanFactory(Class<?> clazz) {
