@@ -26,9 +26,14 @@ import com.axoniq.someproject.api.SomeEvent;
 import com.axoniq.someproject.api.StatusChangedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
+import org.axonframework.messaging.InterceptorChain;
+import org.axonframework.messaging.Message;
+import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateMember;
 import org.axonframework.modelling.command.AggregateRoot;
+import org.axonframework.modelling.command.CommandHandlerInterceptor;
+import org.axonframework.modelling.command.ForwardMatchingInstances;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,22 +46,33 @@ import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 @AggregateRoot(type = "some_aggregate")
 public class SomeAggregate {
 
+    @AggregateMember(eventForwardingMode = ForwardMatchingInstances.class)
+    private final List<SomeAggregateChild> childList = new ArrayList<>();
+    @AggregateMember
+    private final Map<String, SomeAggregateChild> childMap = new HashMap<>();
     @AggregateIdentifier
     private String id;
     private String status;
-
     @AggregateMember
     private SingleAggregateChild child;
-
-    @AggregateMember
-    private final List<SomeAggregateChild> childList = new ArrayList<>();
-
-    @AggregateMember
-    private final Map<String, SomeAggregateChild> childMap = new HashMap<>();
 
     @CommandHandler
     public SomeAggregate(SomeCommand command) {
         apply(new SomeEvent(command.id()));
+    }
+
+    public SomeAggregate() {
+        // Required by Axon to construct an empty instance to initiate Event Sourcing.
+    }
+
+    @ExceptionHandler
+    public void exceptionHandler(Exception error) throws Exception {
+        throw error;
+    }
+
+    @CommandHandlerInterceptor
+    public Object intercept(Message<?> message, InterceptorChain chain) throws Exception {
+        return chain.proceed();
     }
 
     @CommandHandler
@@ -95,9 +111,5 @@ public class SomeAggregate {
     @EventSourcingHandler
     protected void onAddedToMap(ChildAddedToMapEvent event) {
         this.childMap.put(event.key(), new SomeAggregateChild(event.id(), event.property()));
-    }
-
-    public SomeAggregate() {
-        // Required by Axon to construct an empty instance to initiate Event Sourcing.
     }
 }
