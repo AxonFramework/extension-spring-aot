@@ -9,3 +9,20 @@ For earlier releases, please go to the link:https://legacydocs.axoniq.io/referen
 Upgrades the Spring AOT Extension to be compatible with Axon Framework 4.10.0, and updates various dependencies.
 
 See the link:https://github.com/AxonFramework/extension-spring-aot/releases/tag/axon-spring-aot-4.10.0[GitHub release notes] for an exhaustive list of all changes.
+
+== Patch Releases
+
+=== Release 4.10.1
+
+====  Bug fixes
+
+- Added native-compilation hints for reflection link:https://github.com/AxonFramework/extension-spring-aot/pull/197[#197]
+- Aggregate member causes errors in running Spring Boot AOT application link:https://github.com/AxonFramework/extension-spring-aot/issues/193[#193]
+- Command handler interceptor causes errors in running Spring Boot AOT application link:https://github.com/AxonFramework/extension-spring-aot/issues/192[#192]
+- Spring AOT doesn't work when using custom or spring beans as parameters in handler methods link:https://github.com/AxonFramework/extension-spring-aot/issues/183[#183]
+
+==== Contributors
+
+We'd like to thank all the contributors who worked on this release!
+
+- link:https://github.com/abuijze[@abuijze]
