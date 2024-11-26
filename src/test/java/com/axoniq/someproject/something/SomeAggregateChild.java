@@ -16,6 +16,7 @@
 
 package com.axoniq.someproject.something;
 
+import com.axoniq.someproject.SomeBean;
 import com.axoniq.someproject.api.SomeChildCommand;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.modelling.command.EntityId;
@@ -26,7 +27,7 @@ public record SomeAggregateChild(
 ) {
 
     @CommandHandler
-    public void handle(SomeChildCommand command) {
+    public void handle(SomeChildCommand command, SomeBean someBean) {
         //left empty to not overcomplicate things
     }
 }

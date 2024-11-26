@@ -16,9 +16,11 @@
 
 package com.axoniq.someproject.something;
 
+import com.axoniq.someproject.SomeBean;
 import com.axoniq.someproject.api.SingleChildCommand;
-import com.axoniq.someproject.api.SomeChildCommand;
 import org.axonframework.commandhandling.CommandHandler;
+import org.axonframework.messaging.InterceptorChain;
+import org.axonframework.modelling.command.CommandHandlerInterceptor;
 import org.axonframework.modelling.command.EntityId;
 
 public record SingleAggregateChild(
@@ -26,8 +28,13 @@ public record SingleAggregateChild(
         String property
 ) {
 
+    @CommandHandlerInterceptor
+    public Object intercept(InterceptorChain chain) throws Exception {
+        return chain.proceed();
+    }
+
     @CommandHandler
-    public void handle(SingleChildCommand command) {
+    public void handle(SingleChildCommand command, SomeBean someBean) {
         //left empty to not overcomplicate things
     }
 }
