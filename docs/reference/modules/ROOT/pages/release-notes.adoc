@@ -10,7 +10,7 @@ Upgrades the Spring AOT Extension to be compatible with Axon Framework 4.10.0, a
 
 See the link:https://github.com/AxonFramework/extension-spring-aot/releases/tag/axon-spring-aot-4.10.0[GitHub release notes] for an exhaustive list of all changes.
 
-== Patch Releases
+== Patch releases
 
 === Release 4.10.1
 
