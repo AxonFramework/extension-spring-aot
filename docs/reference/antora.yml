@@ -4,7 +4,7 @@ start_page: ROOT:index.adoc
 version:
   axon-spring-aot-(?<version>+({0..9}).+({0..9})).*: $<version>
   main: development
-prerelease: true
+prerelease: false
 
 asciidoc:
   attributes:
