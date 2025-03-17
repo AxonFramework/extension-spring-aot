@@ -55,7 +55,7 @@
         <jackson.version>2.18.3</jackson.version>
         <!-- Testing -->
         <assertj.version>3.27.3</assertj.version>
-        <junit.jupiter.version>5.10.1</junit.jupiter.version>
+        <junit.jupiter.version>5.12.1</junit.jupiter.version>
         <mockito.version>5.16.1</mockito.version>
         <netty.version>4.1.119.Final</netty.version>
         <!-- Build / Plugin -->
@@ -180,6 +180,12 @@
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>${assertj.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
