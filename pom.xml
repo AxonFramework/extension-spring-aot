@@ -49,7 +49,7 @@
         <!-- Main -->
         <axon.version>4.11.2</axon.version>
         <spring.version>6.2.8</spring.version>
-        <spring-boot.version>3.5.0</spring-boot.version>
+        <spring-boot.version>3.5.3</spring-boot.version>
         <!-- Database -->
         <jakarta.persistence.version>3.1.0</jakarta.persistence.version>
         <!-- Serialization -->
@@ -60,7 +60,7 @@
         <mockito.version>5.18.0</mockito.version>
         <netty.version>4.2.2.Final</netty.version>
         <!-- Build / Plugin -->
-        <central-publishing-maven-plugin.version>0.7.0</central-publishing-maven-plugin.version>
+        <central-publishing-maven-plugin.version>0.8.0</central-publishing-maven-plugin.version>
         <jacoco-maven.version>0.8.13</jacoco-maven.version>
         <maven-assembly.version>3.7.1</maven-assembly.version>
         <maven-clean.version>3.5.0</maven-clean.version>
